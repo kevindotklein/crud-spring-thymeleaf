@@ -1,0 +1,28 @@
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<div th:if="${error_msg}" th:text="${error_msg}"></div>
+
+<form action="/tasks/form/save"  method="POST">
+
+    <div th:if="${task}">
+    <input type="text" readonly id="id" name="id" th:value="${task?.getId()}">
+    </div>
+
+    name: <input type="text" class="form-control" name="name"
+                 th:value="${task?.getName()}"/>
+
+    author: <select name="author" class="custom-select">
+    <option th:each="author : ${authorlist}"
+            th:value="${author.getId()}"
+            th:text="${author.getName()}"
+            th:selected="${author.getId()} == ${task?.getAuthor()?.getId()}"></option>
+</select>
+
+    <button type="submit" class="btn btn-primary">salvar</button>
+
+</form>
+</body>
+</html>
